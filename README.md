@@ -1,59 +1,55 @@
-# Visualisation et manipulation de graphes temporels
+# Visualization and manipulation of temporal graphs
 
-## État du projet
+## Project status
 
-En cours de développement.  
+Under development.
 
-Début : 01/01/2024  
+Start: 01/01/2024
 
-Fin : 31/08/2024 (prédiction)
+End: 09/31/2024 (prediction)
 
 ## Description
 
-Proposer des outils de manipulation de graphes temporels en lien avec la théorie automates et des langages, ainsi que des outils de visualisation adaptés.
+Propose tools for manipulating temporal graphs related to automata and language theory, as well as adapted visualization tools.
 
-## Objectifs
+## Objectives
 
-- **Création d'un logiciel** : simple à utiliser, couvrant plusieurs fonctionnalités à définir.
-- **Portabilité** : logiciel/graphes temporels/automates portables.
-- **Orientation théorie des automates** : le but étant d'utiliser des éléments de la théorie des automates/langages pour résoudre certains problèmes liés aux graphes temporels.
+- **Creation of software**: simple to use, covering several functionalities.
+- **Portability**: portable software.
+- **Automata theory orientation**: the goal being to use elements of automata/language theory to solve certain problems related to temporal graphs.
 
-## Structure de répertoire
+## Directory structure
 
-**ChronoGraph** : Outil de représentation.  
+**ChronoGraph**: Representation tool. All codes related to the implementation.
 
-**SoA** : State-of-the-art.
+**Examples**: Set of examples to highlight the different features of the software.
 
-## Prérequis
+## Prerequisites
 
-- Graphes temporels
-- Théorie des automates.
-- Grammaire/langages.
+- Temporal graphs
+- Automata theory.
+- Grammar/languages.
 
-## Produits finis
+## Final products
 
-**Rapport de recherche** : Un rapport complet et détaillé.
+**Research report**: A complete and detailed report.
 
-**Outil de représentation** : Un outil logiciel ou une bibliothèque.
+**Representation tool**: A software tool.
 
-**Documentation technique** : Une documentation complète pour l'outil.
+**Technical documentation**: A complete documentation for the tool.
 
 ## Support
 
 maxime.lefranc@etu.unige.ch
 
-## Auteurs et remerciements
+## Authors and acknowledgements
 
-**Auteurs Principaux :**
+**Main authors:**
 
-Maxime Lefranc - Étudiant en master, Université de Genève - maxime.lefranc@etu.unige.ch
+Maxime Lefranc - Master student, University of Geneva - maxime.lefranc@etu.unige.ch
 
-**Contributeurs :**
+**Contributors:**
 
-Arnaud Casteigts - Professeur d'informatique à l'Université de Genève, également affilié au LaBRI, Université de Bordeaux, dans le département Combinatoire et Algorithme. - arnaud.casteigts@u-bordeaux.fr - arnaud.casteigts@unige.ch - https://arnaudcasteigts.net/
+Arnaud Casteigts - Professor of computer science at the University of Geneva, also affiliated with LaBRI, University of Bordeaux, in the Combinatorics and Algorithm department. - arnaud.casteigts@u-bordeaux.fr - arnaud.casteigts@unige.ch - https://arnaudcasteigts.net/
 
-Petra Wolf - Post-Doc in Theoretical Computer Science - mail@wolfp.net - https://www.wolfp.net/
-
-## Liens 
-
-Icons : https://www.svgrepo.com/collection/coolicons-line-oval-icons/
+Petra Wolf - Post-Doc in Theoretical Computer Science - mail@wolfp.net - https://www.wolfp.net/ ## Icons Links: https://www.svgrepo.com/collection/coolicons-line-oval-icons/
