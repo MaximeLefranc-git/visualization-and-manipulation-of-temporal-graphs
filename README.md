@@ -52,4 +52,4 @@ Maxime Lefranc - Master student, University of Geneva - maxime.lefranc@etu.unige
 
 Arnaud Casteigts - Professor of computer science at the University of Geneva, also affiliated with LaBRI, University of Bordeaux, in the Combinatorics and Algorithm department. - arnaud.casteigts@u-bordeaux.fr - arnaud.casteigts@unige.ch - https://arnaudcasteigts.net/
 
-Petra Wolf - Post-Doc in Theoretical Computer Science - mail@wolfp.net - https://www.wolfp.net/ ## Icons Links: https://www.svgrepo.com/collection/coolicons-line-oval-icons/
+Petra Wolf - Post-Doc in Theoretical Computer Science - mail@wolfp.net - https://www.wolfp.net/
