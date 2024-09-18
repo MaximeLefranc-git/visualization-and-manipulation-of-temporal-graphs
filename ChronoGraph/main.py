@@ -54,43 +54,17 @@ class CentralWidget(QWidget):
 
         self.canvas.mpl_connect("button_press_event", self.on_press)
         self.canvas.mpl_connect("button_release_event", self.on_release)
-        # self.canvas.mpl_connect("motion_notify_event", self.on_move)
     
     def on_press(self, event):
-        # print("press")
-        # print("event.xdata", event.xdata)
-        # print("event.ydata", event.ydata)
-        # print("event.inaxes", event.inaxes)
-        # print("x", event.x)
-        # print("y", event.y)
         self.x = event.x
         self.y = event.y
         if self.isWaitingClickPosition == True:
             self.createNode.emit(event.xdata, event.ydata)
             self.reableAllActions.emit()
             self.isWaitingClickPosition = False
-        # self.clickPositions.emit(self.x, self.y)
 
     def on_release(self, event):
-        # print("release:")
-        # print("event.xdata", event.xdata)
-        # print("event.ydata", event.ydata)
-        # print("event.inaxes", event.inaxes)
-        # print("x", event.x)
-        # print("y", event.y)
-        # if self.isWaitingClickPosition == True:
-        #     self.createNode.emit(event.xdata, event.ydata)
-        #     self.reableAllActions.emit()
-        #     self.isWaitingClickPosition = False
         self.clickPositions.emit(self.x, self.y)
-
-    # def on_move(self, event):
-    #     print("move")
-    #     print("event.xdata", event.xdata)
-    #     print("event.ydata", event.ydata)
-    #     print("event.inaxes", event.inaxes)
-    #     print("x", event.x)
-    #     print("y", event.y)  
 
 class ChronoGraphUI(QMainWindow):
     
@@ -165,7 +139,6 @@ class ChronoGraphUI(QMainWindow):
         
     def _setBaseUIParameters(self):
         # Canva size
-        # self.setGeometry(100, 100, 800, 800)
         self.setFixedSize(800, 800)
         # Title
         self.setWindowTitle('ChronoGraph')
@@ -196,14 +169,6 @@ class ChronoGraphUI(QMainWindow):
         fileMenu.addSeparator()
         fileMenu.addAction(self.exitAction)
 
-        ## Edit
-        # editMenu = self.menuBar.addMenu("&Edit")
-
-        ## Help
-        # helpMenu = self.menuBar.addMenu("&Help")
-        # helpMenu.addAction(self.manualAction)
-        # helpMenu.addAction(self.aboutAction)
-
         ## Layout
         LayoutMenu = self.menuBar.addMenu("&Layout")
         NodeMenu = LayoutMenu.addMenu("Nodes")
@@ -212,10 +177,6 @@ class ChronoGraphUI(QMainWindow):
         NodeMenu.addAction(self.springNodeLayoutAction)
         NodeMenu.addAction(self.dotNodeLayoutAction)
         NodeMenu.addAction(self.radialNodeLayoutAction)
-        # NodeMenu.addAction(self.communityNodeLayoutAction)
-        # NodeMenu.addAction(self.bipartiteNodeLayoutAction)
-        # NodeMenu.addAction(self.shellNodeLayoutAction)
-        # NodeMenu.addAction(self.geometricNodeLayoutAction)
 
         ## Color
         ColorMenu = self.menuBar.addMenu("&Color")
@@ -255,7 +216,6 @@ class ChronoGraphUI(QMainWindow):
         DismountabilityMenu.addAction(self.vertexDismountabilityAction)
         DismountabilityMenu.addAction(self.spannerDismountabilityAction)
 
-
     # TOOLBAR
 
     def _createToolBar(self):
@@ -282,8 +242,6 @@ class ChronoGraphUI(QMainWindow):
         ToolBar.addAction(self.RestlessAction)
         ToolBar.addAction(self.completeTemporalConnectedAction)
         ToolBar.addAction(self.biPathAction)
-        # Paths features
-        # ToolBar.addAction(self.pathBetweenNodesAction)
         # Mooving features
         ToolBar.addSeparator()
         ToolBar.addAction(self.mooveLeftAction)
@@ -318,10 +276,6 @@ class ChronoGraphUI(QMainWindow):
         self.springNodeLayoutAction = QAction("&Spring Layout", self)
         self.dotNodeLayoutAction = QAction("&Dot Layout", self)
         self.radialNodeLayoutAction = QAction("&Radial Layout", self)
-        # self.communityNodeLayoutAction = QAction("&Community Layout", self)
-        # self.bipartiteNodeLayoutAction = QAction("&Bipartite Layout", self)
-        # self.shellNodeLayoutAction = QAction("&Shell Layout", self)
-        # self.geometricNodeLayoutAction = QAction("&Geometric Layout", self)
         # Color
         self.ResetNodeColorAction = QAction("Reset", self)
         self.ResetEdgeColorAction = QAction("Reset", self)
@@ -440,7 +394,6 @@ class ChronoGraphUI(QMainWindow):
         self.exampleAction.triggered.connect(lambda: self.example(['A', 'B', 'C', 'D', 'E', 'F', 'G'], np.array([['A', 'B'], ['A', 'C'], ['B', 'D'], ['B', 'E'], ['C', 'F'], ['C', 'G']]), edges_labels=[[["A", "B"], "1"], [["A", "C"], "2"], [["B", "D"], "3"], [["B", "E"], "4"], [["C", "F"], "5"], [["C", "G"], "6"]]))
         # graph operations
         self.addNodeAction.triggered.connect(lambda: self.add_node(x=None, y=None))
-        # self.addNodeAction.triggered.connect(self.add_node)
         self.removeNodeAction.triggered.connect(lambda: self.remove_node(None))
         self.addEdgeAction.triggered.connect(lambda: self.add_edge(None, None))
         self.removeEdgeAction.triggered.connect(lambda: self.remove_edge(None))
@@ -450,10 +403,6 @@ class ChronoGraphUI(QMainWindow):
         self.springNodeLayoutAction.triggered.connect(lambda: self.nodeLayout('spring'))
         self.dotNodeLayoutAction.triggered.connect(lambda: self.nodeLayout('dot'))
         self.radialNodeLayoutAction.triggered.connect(lambda: self.nodeLayout('radial'))
-        # self.communityNodeLayoutAction.triggered.connect(lambda: self.nodeLayout('community'))
-        # self.bipartiteNodeLayoutAction.triggered.connect(lambda: self.nodeLayout('bipartite'))
-        # self.shellNodeLayoutAction.triggered.connect(lambda: self.nodeLayout('shell'))
-        # self.geometricNodeLayoutAction.triggered.connect(lambda: self.nodeLayout('geometric'))
         # Color
         self.ResetNodeColorAction.triggered.connect(lambda : self.changeColor("reset_color_nodes", perso=None))
         self.ResetEdgeColorAction.triggered.connect(lambda : self.changeColor("reset_color_edges", perso=None))
@@ -559,11 +508,6 @@ class ChronoGraphUI(QMainWindow):
         combobox1.addItem('Fastest')
         combobox1.currentTextChanged.connect(self.setForemostShortestFastest)
 
-        # combobox2 = QComboBox()
-        # combobox2.addItem('Path')
-        # combobox2.addItem('Walk')
-        # combobox2.currentTextChanged.connect(self.setPathOrWalk)
-
         ## HORIZONTAL
 
         self.centralWidget.grid.addWidget(self.centralWidget.canvas, 1, 1, 9, 9)
@@ -574,7 +518,6 @@ class ChronoGraphUI(QMainWindow):
         self.centralWidget.grid.addWidget(buttonRemoveEdge, 4, 0)
 
         self.centralWidget.grid.addWidget(case, 7, 0)
-        # self.centralWidget.grid.addWidget(combobox2, 7, 0)
         self.centralWidget.grid.addWidget(combobox1, 8, 0)
         self.centralWidget.grid.addWidget(buttonDebug, 9, 0)
         
@@ -586,9 +529,6 @@ class ChronoGraphUI(QMainWindow):
 
     def _setShortcut(self):
         # https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtgui/qkeysequence.html#enums
-        # self.copyAction.setShortcut(QKeySequence.Copy)
-        # self.pasteAction.setShortcut(QKeySequence.Paste)
-        # self.cutAction.setShortcut(QKeySequence.Cut)
         self.newAction.setShortcut(QKeySequence.New)
         self.openAction.setShortcut(QKeySequence.Open)
         self.saveAction.setShortcut(QKeySequence.Save)
@@ -747,16 +687,13 @@ class ChronoGraphUI(QMainWindow):
         msgBox.setText("Do you want to save?")
         msgBox.setWindowTitle("Alert")
         msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel)
-        # msgBox.buttonClicked.connect(msgButtonClick)
 
         returnValue = msgBox.exec()
         if returnValue == QMessageBox.Yes:
-            # print('Yes clicked')
             self.saveJson()
             self.clearGraph()
             return True
         elif returnValue == QMessageBox.No:
-            # print('No clicked')
             self.clearGraph()
         elif returnValue == QMessageBox.Cancel:
             print('Cancel clicked')
@@ -847,9 +784,6 @@ class ChronoGraphUI(QMainWindow):
             print("Positions : ")
             for node in self.InteractiveGraph.node_positions:
                 print(f"{node} : ({self.InteractiveGraph.node_positions[node][0]},{self.InteractiveGraph.node_positions[node][1]}) : {self.node_color[node]}")
-        # print("node color = ", self.node_color)
-        # print("edge color = ", self.edge_color)
-        # print("edge_labels = ", self.edges_labels)
         for edge,label in self.edges_labels.items():
             print(f"{edge} : {label} : {self.edge_color[edge]}")
         if self.editingMode == True:
@@ -868,6 +802,7 @@ class ChronoGraphUI(QMainWindow):
             print("y lim : ", self.ax.get_ylim())
             
         print('type of paths = ', self.typeOfPath)
+    
     # Convertions function 
 
     def labelsToList(self, labels):
@@ -880,7 +815,7 @@ class ChronoGraphUI(QMainWindow):
     ## Graph operations
         
     def add_node(self, x, y): 
-        ## Recupere le nom dans le champ
+
         name_node = self.champ.text()
 
         if x == None and y == None:
@@ -898,9 +833,6 @@ class ChronoGraphUI(QMainWindow):
         for node in self.graph.nodes:
             if self.node_color[node] == "tab:green":
                 self.node_color[node] = "w"
-        
-        # for edge in self.edge_color:
-        #     self.edge_color[edge] = "#2c404c"
 
         if name_node not in self.graph.nodes:
             self.graph.add_node(name_node)
@@ -948,11 +880,8 @@ class ChronoGraphUI(QMainWindow):
             _ = self.positions.pop(name_node)
             _ = self.node_color.pop(name_node)
             # Reset all the color of existing edge
-            # self.edge_color.clear()
             new_edges_labels = dict()
             for edge in self.graph.edges:
-                # self.edge_color[edge] = '#2c404c'
-                # self.edge_color[edge[::-1]] = '#2c404c'
                 if edge in self.edges_labels:
                     new_edges_labels[edge] = self.edges_labels[edge]
             self.edges_labels = new_edges_labels
@@ -1021,10 +950,6 @@ class ChronoGraphUI(QMainWindow):
         else:
             self.positions = dict()
         
-        # Reset the color of all node
-        # for node in self.graph.nodes:
-        #     self.node_color[node] = "w"
-        
         # Reset the color of the edges:
         for edge in self.graph.edges:
             if edge in self.edge_color.keys():
@@ -1077,15 +1002,6 @@ class ChronoGraphUI(QMainWindow):
             self.positions = self.InteractiveGraph.node_positions
         else:
             self.positions = dict()
-        
-        # Reset the color of all node
-        # for node in self.graph.nodes:
-        #     self.node_color[node] = "w"
-        
-        # # Reset the color of the edges:
-        # for edge in self.graph.edges:
-        #     self.edge_color[edge] = '#2c404c'
-        #     self.edge_color[edge[::-1]] = '#2c404c'
 
         # edges labels
         if (node_from, node_to) in self.edges_labels:
@@ -1189,9 +1105,6 @@ class ChronoGraphUI(QMainWindow):
             
             for edge in edges:
                 for element in self.edge_color:
-                    # print("element = ", element)
-                    # print("(edges[0], edges[1]) = ", (edge[0], edge[1]))
-                    # print(" == ", (edge[0], edge[1]) == element)
                     if element ==  (edge[0], edge[1]) or element == (edge[1], edge[0]):
                         self.edge_color[element] = color
         
@@ -1233,18 +1146,9 @@ class ChronoGraphUI(QMainWindow):
         
         if action == "perso_edges_nodes_temporal_path":
             nodes_already_colored = []
-            # Reset edge color
-            # for element in self.edge_color:
-            #     self.edge_color[element] = "#2c404c"
-            # Reset node color
-            # for element in self.node_color:
-            #     self.node_color[element] = "w"
 
             for edge in perso:
                 for element in self.edge_color:
-                    # print("element = ", element)
-                    # print("(edges[0], edges[1]) = ", (edge[0], edge[1]))
-                    # print(" == ", (edge[0], edge[1]) == element)
                     if element ==  (edge[0], edge[1]) or element == (edge[1], edge[0]):
                         self.edge_color[element] = 'lightcoral'
                 
@@ -1397,12 +1301,10 @@ class ChronoGraphUI(QMainWindow):
         if self.InteractiveGraph != None:
             for node in self.graph.nodes:
                 if self.InteractiveGraph.node_artists[node].contains_point((self.clickPositionX, self.clickPositionY), radius=0.1):
-                    # print(f"Node : {node}")
                     detectedNode = node
                     self.lastDetectedNode = node
             for edge in self.graph.edges:
                 if self.InteractiveGraph.edge_artists[edge].contains_point((self.clickPositionX, self.clickPositionY), radius=0.1):
-                    # print(f"Edge : {edge}")
                     detectedEdge = edge
                     self.lastDetectedEdge = edge
         
@@ -1429,7 +1331,6 @@ class ChronoGraphUI(QMainWindow):
             if detectedNode != None:
                 self.remove_node(detectedNode)
             elif detectedEdge != None:
-                # print('detected edge = ', detectedEdge)
                 to_delete = detectedEdge[0] + "->" + detectedEdge[1]
                 self.remove_edge(to_delete)
             self.deletingMode()
@@ -1550,8 +1451,6 @@ class ChronoGraphUI(QMainWindow):
         else:
             return -1
     
-        # print(f'edge = {edge}, edge[0] = {edge[0]}, edge[1] = {edge[1]}')
-        # print(f'self.edges__labels = {self.edges_labels}')
         self.edges_labels[edge] = text
         if ',' in text:
             labels_splited = text.split(",")
@@ -1561,7 +1460,6 @@ class ChronoGraphUI(QMainWindow):
         else:
             if int(text) > self.lifetime:
                 self.lifetime = int(text)
-        # print(f'self.edges__labels = {self.edges_labels}')
         self.nodeLayout(self.positions)
     
     # Stricte/Non-stricte
@@ -1635,8 +1533,6 @@ class ChronoGraphUI(QMainWindow):
             new_nodes = [element for element in self.graph.nodes]
             for i in range(len(self.graph.nodes)):
                 for j in range(i+1, len(self.graph.nodes)):
-                    # print("self.graph.nodes = ", type(self.graph.nodes))
-                    # print("self.graph.nodes = ", self.graph.nodes[1])
                     text = new_nodes[i] + "->" + new_nodes[j]
                     tmp = self.isTemporalyConnected(one_edge=text, target="all", changeColor=True, method="spanner")
                     if tmp == False or tmp == -1:
@@ -1677,8 +1573,6 @@ class ChronoGraphUI(QMainWindow):
                 print("labels = ",labels)
                 if min_path != '':
                     print(f"{node_from} is temporally connected to {node_to}, path : {min_path}, labels : {min_label}")
-                    # print(f"{node_from}{paths[node_to]}")
-                    # print(f"labels : {labels[node_to][1::]}")
                     edges = []
                     nodes = min_path
                     nodes = nodes.split("->")
@@ -1696,10 +1590,6 @@ class ChronoGraphUI(QMainWindow):
                     return -1
     
             else:
-                #################
-                #################
-                #################
-                #################
                 max_value = 0
                 # Find the maximum temporal value
                 for key in self.edges_labels.keys():
@@ -1707,13 +1597,9 @@ class ChronoGraphUI(QMainWindow):
                     for lab in labs:
                         if lab > max_value:
                             max_value = lab
-                # print("max_value = ", max_value)
                 final_last_label = max_value
                 for i in range(max_value+1):
                     _, labels, paths = self.foremost_temporal_dijkstra(node_from, min_value=i)
-                    # print("labels = ",labels)
-                    # print("paths = ", paths)
-                    # print("\n")
                     last_label = 0
                     last_person = None
                     for key in labels.keys():
@@ -1739,20 +1625,6 @@ class ChronoGraphUI(QMainWindow):
                 print("\n")
                 paths = final_paths
                 labels = final_labels
-
-
-                # max_len_path = 0
-                # for node in self.graph.nodes:
-                #     if node != node_from:
-                #         min_path, min_label, paths_tmp, labels_tmp = self.fastest_temporal_dijkstra(self.graph, self.edges_labels, node_from, node)
-                #         print("paths = ", min_path)
-                #         print("labels = ", min_label)
-                #         # the number of labels give us the length of the path
-                #         if len(min_label) > max_len_path:
-                #             max_len_path = len(min_label)
-                #             paths = paths_tmp
-                #             labels = labels_tmp
-                #             node_to = node
 
         edges_already = []
         finals_labels = []
@@ -1831,22 +1703,14 @@ class ChronoGraphUI(QMainWindow):
                 temporals_labels = []
                 # Start : all temporals labels
                 if (current_node, neighbor) in self.edges_labels.keys() and self.edges_labels[(current_node, neighbor)] != "":
-                    # print("labels = ", self.edges_labels[(current_node, neighbor)])
                     temporals_labels = self.labelsToList(self.edges_labels[(current_node, neighbor)])
                 elif (neighbor, current_node) in self.edges_labels.keys() and self.edges_labels[(neighbor, current_node)] != "":
-                    # print("labels = ", self.edges_labels[(neighbor, current_node)])
                     temporals_labels = self.labelsToList(self.edges_labels[(neighbor, current_node)])
                 # Processing : taking the min possible value
-                # print(f"{current_node}->{neighbor}")
-                # print(f"dist = {dist}")
-                # print(f"temporals_labels = {temporals_labels}")
-                # print("dist>temp ? ", dist>temporals_labels)
                 temporals_label_available = self.atLeastOneLarger(dist, temporals_labels, self.stricte)
                 print("temporals_label_available = ", temporals_label_available)
                 # Edge current_node->neighbor is not possible
                 if temporals_label_available and neighbor not in visited:
-                    # print("yes")
-                    # print("not alreardy visited")
                     old_cost = distances[neighbor]
                     new_cost = temporals_label_available
                     if new_cost < old_cost:
@@ -1975,7 +1839,6 @@ class ChronoGraphUI(QMainWindow):
                         for paths in paths_opt[obj[0]]:
                             curr = []
                             for edg in paths:
-                                # print('edg = ', edg)
                                 curr.append(edg)
                             curr.append(obj)
                             paths_opt[obj[1]].append(curr)
@@ -1986,7 +1849,6 @@ class ChronoGraphUI(QMainWindow):
                         for paths in paths_opt[obj[1]]:
                             curr = []
                             for edg in paths:
-                                # print('edg = ', edg)
                                 curr.append(edg)
                             curr.append(obj)
                             paths_opt[obj[0]].append(curr)
@@ -1994,31 +1856,24 @@ class ChronoGraphUI(QMainWindow):
                         for paths in paths_opt[obj[0]]:
                             curr = []
                             for edg in paths:
-                                # print('edg = ', edg)
                                 curr.append(edg)
                             curr.append(obj)
                             paths_opt[obj[1]].append(curr)
-                # print("paths_opt = ", paths_opt)
         final_paths_opt = {node:[] for node in self.graph.nodes if node != s}
         for key in paths_opt.keys():
-            # print("key = ", key)
             visited_paths = []
             for paths in paths_opt[key]:
-                # print('paths = ', paths)
                 var_time = 0
                 paths_cpy = copy.deepcopy(paths)
                 new_paths = []
                 while len(paths_cpy) > 0:
                 # for edge in paths:
                     edge = paths_cpy.pop(0)
-                    # print("edge = ", edge)
                     verif = True
                     all_labels = []
                     labels = self.labelsToList(self.edges_labels[edge])
                     for label in labels:
-                        # print("label = ", label)
                         if label <= var_time + beta:
-                            # print("inf")
                             all_labels.append(label)
                             new_paths.append(edge)
                     if all_labels != []:
@@ -2034,27 +1889,19 @@ class ChronoGraphUI(QMainWindow):
                                 commun = new_paths[0][1]
                             else:
                                 commun = new_paths[0][0]
-                        # print('new_paths = ', new_paths)
-                        # print('edge = ', edge)
                         if len(new_paths) >= 2:
-                            # print("if if ")
                             if new_paths[-1][0] in new_paths[-2]:
                                 commun = new_paths[-1][1]
                             else:
                                 commun = new_paths[-1][0]
-                        # print("commun = ", commun)
                         finded = False
                         for k in self.edges_labels.keys():
                             if commun in k and finded == False:
-                                # print("KEEYY = ", k)
                                 all_labels_to_test = []
                                 labels_to_test = self.labelsToList(self.edges_labels[k])
 
                                 for label in labels_to_test:
-                                    # print("label = ", label)
-                                    # print("var_time + beta + 1 = ", var_time + beta + 1)
                                     if label > var_time and label <= var_time + beta:
-                                        # print("inf inf")
                                         all_labels_to_test.append(label)
                                 if all_labels_to_test != []:
                                     var_time = min(all_labels_to_test)
@@ -2140,7 +1987,6 @@ class ChronoGraphUI(QMainWindow):
                     V_prime = set(V_prime) | set(w)
                     if [v,w] not in V_prime_edges and [w,v] not in V_prime_edges:
                         V_prime_edges.append([v,w])
-        # print("V_prime edges = ", V_prime_edges)
         return V_prime, opt_t, V_prime_edges
 
 
@@ -2156,7 +2002,6 @@ class ChronoGraphUI(QMainWindow):
         V = []
 
         for edge in self.graph.edges:
-            # print("edgos = ", edge)
             edge_from = edge[0]
             edge_to = edge[1]
             if (edge_from, edge_to) in self.edges_labels.keys():
@@ -2171,8 +2016,6 @@ class ChronoGraphUI(QMainWindow):
                 labels = edge_to_consider.split(",")
             else:
                 labels = [edge_to_consider]
-
-            # print("labels = ", labels)
 
             if str(time_i) in labels:
                 # print("yes")
@@ -2252,7 +2095,6 @@ class ChronoGraphUI(QMainWindow):
                     edge = (u,v)
                     if edge not in E_star:
                         E_star.add(edge)
-        # print("E_*...")
         return E_star
     
     def G_s_t_bitsets(self):
@@ -2330,7 +2172,6 @@ class ChronoGraphUI(QMainWindow):
                     edge = (u,v)
                     if edge not in E_star:
                         E_star.add(edge)
-        # print("E_*...")
         return E_star
 
     def G_s_t_bitsets_tentative(self):
@@ -2358,7 +2199,6 @@ class ChronoGraphUI(QMainWindow):
             for v in updateV:
                 Rho_to_bits = Nodes_bitsets(tuple(Rho[u]))
                 Rho_plus_to_bit = Nodes_bitsets(tuple(Rho_plus[v]))
-                # Rho[v] = Rho[v].union(Rho_plus[v])
                 Rho[v] = Rho_plus_to_bit.union(Rho_to_bits)
                 Rho_plus[v] = set([])
             # Test whether transitive closure is complete; if so, terminates
@@ -2383,7 +2223,6 @@ class ChronoGraphUI(QMainWindow):
                     edge = (u,v)
                     if edge not in E_star:
                         E_star.add(edge)
-        # print("E_*...")
         return E_star
 
     def transitive_closure(self, a):
@@ -2393,10 +2232,8 @@ class ChronoGraphUI(QMainWindow):
         closure = set([])
         for key in a.keys():
             closure.add(key)
-        # print("closure = ", closure)
         new_dict = a
         while True:
-            # print("YEESSSSS")
             new_relations = {(x,w):new_dict[(q,w)] for x,y in closure for q,w in closure if q == y and x != w}
             new_relations_set = {(x,w) for x,y in closure for q,w in closure if q == y and x != w}
 
@@ -2404,10 +2241,6 @@ class ChronoGraphUI(QMainWindow):
                 new_relations[key] = a[key]
             
             new_relations_set = new_relations_set | closure
-
-            # print("new_relations_set = ", new_relations_set)
-            # print("new_relations = ", new_relations)
-            # print("closure = ", closure)
 
             if new_relations_set == closure:
                 break
@@ -2910,7 +2743,6 @@ class ChronoGraphUI(QMainWindow):
             return -1
 
         # We need to have a spanner (graph tc)
-        ######## tmp = self.isTemporalyConnected(one_edge="all", target=None, changeColor=False, method="spanner")
         if bitsets:
             print("bitsets")
             start = time.time()
@@ -2933,14 +2765,12 @@ class ChronoGraphUI(QMainWindow):
 
         # copy of self.edges_labels
         edges_copy = copy.deepcopy(self.graph.edges)
-        # print("edges_copy = ",edges_copy)
 
         # For each edge, we try to remote it and test if the graph is tc
         edge_to_recup = []
 
         for edge in edges_copy:
             self.graph.remove_edge(edge[0], edge[1])
-            ######## tmp = self.isTemporalyConnected(one_edge="all", target=None, changeColor=False, method='spanner')
             tmp = True
             transitive_closure = self.G_s_t()
             for node_i in self.graph.nodes:
@@ -2953,8 +2783,6 @@ class ChronoGraphUI(QMainWindow):
                 self.graph.add_edge(edge[0], edge[1])
             else:
                 edge_to_recup.append((edge[0], edge[1]))
-            
-            # print("self.graph.edges = ",self.graph.edges)
         
         spanner = copy.deepcopy(self.graph.edges)
         for edge in edge_to_recup:

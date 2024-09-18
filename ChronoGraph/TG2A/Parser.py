@@ -72,9 +72,6 @@ class AutomataParser(Parser):
             Q.append(state["name"])
             if state["initial"] == True and q_0 == "":
                 q_0 = state["name"]
-            # if state["initial"] == True and q_0 != "":
-            #     print("Error : multiples initial states.")
-            #     return -1
             if state["accepting"] == True:
                 F.append(state["name"])
         

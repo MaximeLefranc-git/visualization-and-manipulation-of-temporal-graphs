@@ -81,12 +81,6 @@ class Automaton:
         
         return Automaton(Q, Sigma, transitions, q_0, F)
 
-    #def add_state(self):
-        pass
-
-    #def add_transition(self):
-        pass
-
     def set_initial_state(self, q_0):
         self.initial_state = q_0
 
@@ -98,24 +92,6 @@ class Automaton:
         for element in F:
             self.finals_states.append(element)
 
-    #def remove_state(self):
-        pass
-
-    #def remove_transition(self):
-        pass
-
-    #def run(self, word):
-        """
-        Run the automaton with the word.
-        """
-        pass
-
-    #def is_accepting(self):
-        """
-        Run the automaton for the word and check if we finish in a final state.
-        """
-        pass
-
     def display(self):
         print(f"Automata : \nQ = {self.states}\nSigma = {self.alphabet}\nq_0 = {self.initial_state}\nF = {self.finals_states}")
         # print("\nDelta = ", self.transitions)
@@ -125,12 +101,6 @@ class Automaton:
                 print(f"{self.transitions[i][0][0]} <--> {self.transitions[i][0][1]} : {self.transitions[i][1]}")
         print("\n------------------------------")
         print("\n")
-
-    #def language(self):
-        """
-        Language accepted by this automata
-        """
-        pass
 
     def intersection(self, A2):
         '''
