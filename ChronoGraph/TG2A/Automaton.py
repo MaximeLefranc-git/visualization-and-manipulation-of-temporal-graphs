@@ -157,50 +157,48 @@ class Automaton:
         - optimized_automaton : The optimized automaton.
         """
 
-        # print(" -------------------------------------- ")
-
         reachable_states_from_finals = set()
-        queue = []  # File pour le parcours BFS
+        queue = []
         for element in self.finals_states:
             queue.append(element)
         cleared_transitions_reach = []
 
         while queue:
-            current_state = queue.pop(0)  # Prend le premier élément de la file
-            # Parcours des transitions pour trouver les prochains états atteignables
+            current_state = queue.pop(0)
+            # Traversing transitions to find the next reachable states
             for transition in self.transitions:
                 from_state = transition[0][0]
                 to_state = transition[0][1]
                 
-                # Vérification si l'état courant correspond à l'état d'arivée de la transition
+                # Check if the current state matches the arrival state of the transition
                 if to_state == current_state:
                     if transition not in cleared_transitions_reach:
                         cleared_transitions_reach.append(transition)
                     reachable_states_from_finals.add(current_state)
                     next_state = from_state
-                    reachable_states_from_finals.add(next_state)  # Ajout de l'état atteignable
-                    queue.append(next_state)  # Ajout de l'état à parcourir
+                    reachable_states_from_finals.add(next_state)
+                    queue.append(next_state)
         
-        reachable_states = set()  # Pour stocker les états atteignables
-        queue = [self.initial_state]  # File pour le parcours BFS
-        reachable_states.add(self.initial_state)  # Ajout de l'état initial
+        reachable_states = set()
+        queue = [self.initial_state]
+        reachable_states.add(self.initial_state)
         cleared_transitions = []
 
         while queue:
-            current_state = queue.pop(0)  # Prend le premier élément de la file
+            current_state = queue.pop(0)
             
-            # Parcours des transitions pour trouver les prochains états atteignables
+            # Traversing transitions to find the next reachable states
             for transition in self.transitions:
                 from_state = transition[0][0]
                 to_state = transition[0][1]
                 
-                # Vérification si l'état courant correspond à l'état de départ de la transition
+                # Check if the current state matches the starting state of the transition
                 if from_state == current_state:
                     if transition not in cleared_transitions:
                         cleared_transitions.append(transition)
                     next_state = to_state
-                    reachable_states.add(next_state)  # Ajout de l'état atteignable
-                    queue.append(next_state)  # Ajout de l'état à parcourir
+                    reachable_states.add(next_state)
+                    queue.append(next_state)
         
         cleared_reachables_states = reachable_states & reachable_states_from_finals
         cleared_transitions_final = [item for item in cleared_transitions_reach if item in cleared_transitions]
@@ -232,8 +230,9 @@ class Automaton:
         cleared_transitions_reach = []
         state_already_seen = []
 
+        # Find states that are not reachables from finals
         while queue:
-            current_state = queue.pop(0)  # Prend le premier élément de la file
+            current_state = queue.pop(0)
             reachable_states_from_finals.add(current_state)
             # Stoping condition
             if current_state in state_already_seen:
@@ -242,51 +241,52 @@ class Automaton:
 
             for transition in self.transitions:
                 from_state, to_state = transition[0]
-                # Vérification si l'état courant correspond à l'état d'arivée de la transition
+                # Check if the current state matches the arrival state of the transition
                 if to_state == current_state:
                     cleared_transitions_reach.append(transition)
                     next_state = from_state
-                    queue.append(next_state)  # Ajout de l'état à parcourir
+                    queue.append(next_state)
         
-        reachable_states = set()  # Pour stocker les états atteignables
-        queue = [self.initial_state]  # File pour le parcours BFS
+        reachable_states = set()
+        queue = [self.initial_state]
         cleared_transitions = []
         state_already_seen = []
 
+        # Do not lead to finals
         while queue:
-            current_state = queue.pop(0)  # Prend le premier élément de la file
-            reachable_states.add(current_state)  # Ajout de l'état atteignable
+            current_state = queue.pop(0)
+            reachable_states.add(current_state)
             # Stoping condition
             if current_state in state_already_seen:
                 continue
             state_already_seen.append(current_state)
-            # Parcours des transitions pour trouver les prochains états atteignables
+            # Traversing transitions to find the next reachable states
             for transition in self.transitions:
                 from_state, to_state = transition[0]
-                # Vérification si l'état courant correspond à l'état de départ de la transition
+                # Check if the current state matches the starting state of the transition
                 if from_state == current_state:
                     cleared_transitions.append(transition)
                     next_state = to_state
-                    queue.append(next_state)  # Ajout de l'état à parcourir
+                    queue.append(next_state)
         
         cleared_transitions_final = [item for item in cleared_transitions_reach if item in cleared_transitions]
         cleared_alphabet = [element for _, alphabet in cleared_transitions_final for element in alphabet]
 
         self.alphabet = set(cleared_alphabet)
         self.finals_states = set(self.finals_states) & reachable_states & reachable_states_from_finals
-        # Etats : étteignables et atteignables a partir d'un état
+        # States: reachable and reachable from a state
         self.states = set(reachable_states & reachable_states_from_finals)
         self.transitions = cleared_transitions_final
 
     def save(self, filename):
-        # Crée une structure de données représentant l'automate
+
         automate_data = {
         "type": "automaton",
         "states": [],
         "transitions": []
         }
 
-        # Formatage des transitions pour les ajouter à la structure de données
+        # Formatting transitions to add them to the data structure
         for transition in self.transitions:
             from_state = transition[0][0]
             to_state = transition[0][1]
@@ -310,7 +310,7 @@ class Automaton:
                 "initial": initial,
                 "accepting": final
             })
-        # Écrit la structure de données dans un fichier JSON
+        # Writes the data structure to a JSON file
         with open(filename, 'w') as json_file:
             json.dump(automate_data, json_file, indent=4)
 

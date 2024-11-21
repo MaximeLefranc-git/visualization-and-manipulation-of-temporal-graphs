@@ -2,11 +2,11 @@
 
 ## Project status
 
-Under development.
+Done
 
 Start: 01/01/2024
 
-End: 09/31/2024 (prediction)
+End: 11/22/2024
 
 ## Description
 
@@ -24,23 +24,24 @@ Propose tools for manipulating temporal graphs related to automata and language 
 
 **Examples**: Set of examples to highlight the different features of the software.
 
+**Thesis**: The thesis of the project.
+
 ## Prerequisites
 
-- Temporal graphs
+- Graph theory.
 - Automata theory.
-- Grammar/languages.
 
 ## Final products
 
 **Research report**: A complete and detailed report.
 
-**Representation tool**: A software tool.
+**Representation tool**: A software tool (ChronoGraph).
 
-**Technical documentation**: A complete documentation for the tool.
+**Technical documentation**: A documentation for the tool. This documentation is present in the thesis until another document is published.
 
 ## Support
 
-maxime.lefranc@etu.unige.ch
+maxime.lefranc@etu.unige.ch - Maximelefranc5@gmail.com
 
 ## Authors and acknowledgements
 

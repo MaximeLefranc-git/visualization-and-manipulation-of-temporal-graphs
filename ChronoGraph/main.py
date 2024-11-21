@@ -1786,6 +1786,13 @@ class ChronoGraphUI(QMainWindow):
             E_t, V_t = self.E(t)
             if E_t != dict():
                 V_t_g, E_t_g, E_r, d_t, d_r = self.generateGraph(t, s, delta, L, beta)
+                print('t = ', t)
+                print('V_t_g = ', V_t_g)
+                print('E_t_g = ', E_t_g)
+                print('E_r = ', E_r)
+                print('d_t = ', d_t)
+                print('d_r = ', d_r)
+                print('\n')
                 curr_etg = []
                 for node_f, node_t in E_t_g:
                     if (node_f, node_t) not in curr_etg and (node_t, node_f) not in curr_etg:
@@ -2538,12 +2545,14 @@ class ChronoGraphUI(QMainWindow):
         finals_labels = []
         for i in range(max_value+1):
             _, labels, paths = self.foremost_temporal_dijkstra(node_from, min_value=i)
-            print("labels = ",labels)
-            print("paths = ", paths)
-            print("\n")
+            # print("labels = ",labels)
+            # print("paths = ", paths)
+            # print("\n")
             if paths[node_to] != '':
+                # If exists, path and labels
                 all_str_path = node_from + paths[node_to]
                 all_labels = labels[node_to][1:].split("+")
+                # Compute the diff
                 diff = int(all_labels[-1]) - int(all_labels[0])
                 if diff < min_diff:
                     min_diff = diff
@@ -2551,7 +2560,10 @@ class ChronoGraphUI(QMainWindow):
                     min_labels = all_labels
                     finals_paths = paths
                     finals_labels = labels
-
+        print("finals_paths = ", finals_paths)
+        print("finals_labels = ", finals_labels)
+        print("min_path = ", min_path)
+        print("min_labels = ", min_labels)
         return min_path, min_labels, finals_paths, finals_labels
 
     def bipath(self, key, target): 
@@ -2633,6 +2645,7 @@ class ChronoGraphUI(QMainWindow):
 
         solutions = bpp.solve()
 
+        # Automaton to graph
         new_graph, edges_labels = solutions.to_graph()
 
         if len(new_graph.edges) == 0:

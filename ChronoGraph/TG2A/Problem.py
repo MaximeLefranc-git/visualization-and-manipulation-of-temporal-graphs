@@ -9,6 +9,7 @@ from itertools import product
 from iteration_utilities import unique_everseen, duplicates
 
 class Problem(ABC):
+
     def __init__(self, name):
         self.name = name
 
@@ -38,7 +39,7 @@ class BidirectionalPathProblem(Problem):
             double_alphabet_set = set(letter1 + letter2 for letter1 in alphabet for letter2 in alphabet)
             triple_alphabet_set = set(letter1 + letter2 for letter1 in alphabet for letter2 in double_alphabet_set)
             quadruple_alphabet_set = set(letter1 + letter2 for letter1 in alphabet for letter2 in triple_alphabet_set)
-            # Ajouter l'alphabet à la liste
+            # Add alphabet to list
             sorted_quadruple_alphabet_list = alphabet + sorted(list(double_alphabet_set)) + sorted(list(triple_alphabet_set)) + sorted(list(quadruple_alphabet_set))
             return sorted_quadruple_alphabet_list
 
@@ -72,8 +73,6 @@ class BidirectionalPathProblem(Problem):
                     new_tuple = []
                     for element in sorted_double_alphabet_list[:len(graph.edges)]:
                         new_tuple.append( (element, int(Q[j])) )
-                        # if new_tuple[-1] not in Sigma:
-                        #     Sigma.append(new_tuple[-1])
                     transitions.append([(Q[i], Q[j]), new_tuple ])
             A_time_incr = Automaton(Q, Sigma, transitions, Q[0], Q)
             return A_time_incr
@@ -94,8 +93,6 @@ class BidirectionalPathProblem(Problem):
                     new_tuple_r = []
                     for element in sorted_double_alphabet_list[:len(graph.edges)]:
                         new_tuple_r.append( (element, j ))
-                        # if new_tuple_r[-1] not in Sigma:
-                        #     Sigma.append(new_tuple_r[-1])
                     transitions_r.append([(str(i), str(j)), new_tuple_r ])
 
             A_time_decr = Automaton(Q, Sigma, transitions_r, Q[0], Q)
@@ -157,14 +154,12 @@ class BidirectionalPathProblem(Problem):
 
         def apply_h_on_automata(automata):
             Q = automata.states
-            # for symbol in automata.alphabet:
-                # print("symbol = ", symbol)
-            # print("automata.alphabet = ", automata.alphabet)
             Sigma = set([symbol[0] for symbol in automata.alphabet])
             q_0 = automata.initial_state
             F = automata.finals_states
             delta = []
             for transition in automata.transitions:
+                print("transitions = ", transition)
                 from_to = transition[0]
                 new_symbols = []
                 for tuple in transition[1]:
@@ -173,28 +168,28 @@ class BidirectionalPathProblem(Problem):
             return Automaton(Q, Sigma, delta, q_0, F)
 
         def find_paths(automata, current_state, visited, path, solution):
-            # Marquer l'état actuel comme visité
+
+            # Mark current state as visited
             visited.append(current_state[0][0])
 
-            # Ajouter l'état actuel au chemin
+            # Add current state to path
             path.append(current_state)
 
-            # Vérifier si nous avons atteint l'état cible
+            # Check if we have reached the target state
             if current_state in automata.finals_states:
                 solution.append(path)
             else:
-                # Parcourir les transitions partant de l'état actuel
+                # Loop through transitions starting from the current state
                 for transition in automata.transitions:
                     from_state = transition[0][0]
                     to_state = transition[0][1]
 
-                    # Si l'état de départ de la transition correspond à l'état actuel
+                    # If the starting state of the transition matches the current state
                     if from_state == current_state:
-                        # Vérifier si l'état suivant n'a pas été visité
-                        # print("to_state = ", to_state)
+                        # Check if the next state has not been visited
                         if to_state[0][0] not in path and to_state[0][0] not in visited:
-                            # Récursion pour explorer le chemin suivant
-                            find_paths(automata, to_state, visited[:], path[:], solution)  # Passer des copies de visited et path
+                            # Recursion to explore the next path
+                            find_paths(automata, to_state, visited[:], path[:], solution)
 
         # print("Copy...")
         TG = copy.deepcopy(self.graph)
@@ -204,15 +199,15 @@ class BidirectionalPathProblem(Problem):
         # print("A_s_t...\n")
         A_s_t = self.graph.to_automata()
         print("A_s_t...\n")
-        # A_s_t.display()
+        A_s_t.display()
         A_s_t.set_initial_state(self.start)
         A_s_t.set_final_state(self.target)
 
-        # print("A_s_t :\n")
+        print("A_s_t :\n")
         # A_s_t.display()
         A_s_t.clear()
         # print("A_s_t.clear :\n")
-        # A_s_t.display()
+        A_s_t.display()
 
         A_time_incr = create_A_time_incr(TG)
         # A_time_incr = create_A_time_incr(self.graph)
@@ -229,31 +224,31 @@ class BidirectionalPathProblem(Problem):
 
         A_time_decr.clear()
         # print("A_time_decr.clear :\n")
-        # A_time_decr.display()
+        A_time_decr.display()
 
         A_s_t_time = intersection_opti(A_s_t, A_time_incr)
         print("A_s_t_time...\n")
         # A_s_t_time.display()
         A_s_t_time.clear()
         # print("A_s_t_time.clear :\n")
-        # A_s_t_time.display()
+        A_s_t_time.display()
 
         A_t_s_time = intersection_opti(A_s_t, A_time_decr)
         print("A_t_s_time...\n")
         # A_t_s_time.display()    
         A_t_s_time.clear()
         # print("A_t_s_time.clear :\n")
-        # A_t_s_time.display()  
+        A_t_s_time.display()  
 
         # ## Homomorphism
 
         h_A_s_t_time = apply_h_on_automata(A_s_t_time)
         print("h_A_s_t_time...\n")
-        # h_A_s_t_time.display()
+        h_A_s_t_time.display()
 
         h_A_t_s_time = apply_h_on_automata(A_t_s_time)
         print("h_A_t_s_time...\n")
-        # h_A_t_s_time.display()
+        h_A_t_s_time.display()
 
         # ### A_s_t_bi
         A_s_t_bi = h_A_s_t_time.intersection(h_A_t_s_time)
@@ -262,7 +257,7 @@ class BidirectionalPathProblem(Problem):
         # A_s_t_bi.display()
         A_s_t_bi.clear()
         # print("A_s_t_bi.clear :\n")
-        # A_s_t_bi.display()
+        A_s_t_bi.display()
 
         return A_s_t_bi
 
@@ -271,9 +266,8 @@ def create_temporal_graph(n, nb_labels, max_label, prob):
     double_alphabet_set = set(letter1 + letter2 for letter1 in alphabet for letter2 in alphabet)
     triple_alphabet_set = set(letter1 + letter2 for letter1 in alphabet for letter2 in double_alphabet_set)
     quadruple_alphabet_set = set(letter1 + letter2 for letter1 in alphabet for letter2 in triple_alphabet_set)
-    # Ajouter l'alphabet à la liste
+    # Add alphabet to list
     sorted_quadruple_alphabet_list = alphabet + sorted(list(double_alphabet_set)) + sorted(list(triple_alphabet_set)) + sorted(list(quadruple_alphabet_set))
-    # print("size = ", len(sorted_quadruple_alphabet_list))
 
     if n > 475250:
         print("Please choose a numbef of nodes lower than 475520.")
